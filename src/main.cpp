@@ -23,37 +23,81 @@
 #include <boost/graph/copy.hpp>
 #include <boost/graph/graph_utility.hpp>
 //using boost::graph::distributed::mpi_process_group;
+#include <boost/graph/graph_traits.hpp>
+
+#include <boost/program_options.hpp>
+
+#include "io/io.hpp"
+
+#include <iterator>
 
 
 typedef boost::adjacency_list<> Graph;
 typedef boost::rmat_iterator<boost::minstd_rand, Graph> RMATGen;
 
-typedef boost::adjacency_list< boost::listS, boost::vecS, boost::directedS > ListGraph;
-typedef boost::adjacency_matrix< boost::directedS > MatrixGraph;
+typedef boost::property<boost::vertex_property_tag, double> VertexProperty;
 
 int main (int argc, char *argv[])
 {
+    std::cout << "Checking input parameters" << std::endl;
+    int number_nodes;
+    int number_edges;
+    double a, b, c, d;
+    std::string filename;
+
+    if (argc < 7)
+    {
+        std::cout << "Usage: number_nodes number_edges a b c d filename" << std::endl;
+        return -1;
+    }
+
+    number_nodes = std::atoi(argv[1]);
+    number_edges = std::atoi(argv[2]);
+    a = std::stod(argv[3]);
+    b = std::stod(argv[4]);
+    c = std::stod(argv[5]);
+    d = std::stod(argv[6]);
+    filename = argv[7];
+
+
     std::cout << "Call R-MAT graph generator" << std::endl;
     boost::minstd_rand gen;
 
-    int number_nodes = 1677216;
-    int number_edges = 134217654;
-
     // Create graph with num_vertices nodes and 400 edges
-    Graph g(RMATGen(gen, number_nodes, number_edges, 0.57, 0.19, 0.19, 0.05), RMATGen(), 100);
-
-    std::cout << "numVertices: " << num_vertices(g) << std::endl;
-    std::cout << "numEdges: " << num_edges(g) << std::endl;
-
-    boost::print_graph(g);
+    Graph g(RMATGen(gen, number_nodes, number_edges, a, b, c, d), RMATGen(), 100);
 /*
-    ListGraph lg; 
-    MatrixGraph mg(num_vertices(g));
-    boost::copy_graph(lg, mg);
-*/
+    std::cout << "numVertices: " << num_vertices(g) << std::endl;
+    std::cout << "numEdges: " << num_edges(g) << std::endl;*/
 
+//    std::cout << "writing graph into file (matrix market exchange format)..." << std::endl;
+/*
+    // Iterate through the vertices and print them out
+    typedef boost::graph_traits<Graph>::vertex_iterator vertex_iter;
+    typedef boost::graph_traits<Graph>::adjacency_iterator adjacency_it;
+    std::pair<vertex_iter, vertex_iter> vp;
+    for (vp = vertices(g); vp.first != vp.second; ++vp.first)
+    {
+        std::cout << *vp.first << std::endl;
+
+        for (std::pair<adjacency_it, adjacency_it> neighbours = boost::adjacent_vertices(*vp.first, g); neighbours.first != neighbours.second; ++neighbours.first)
+        {
+            std::cout << "  " << *neighbours.first << std::endl;
+        }
+    }
+        //std::cout << g[*vp.first]  << std::endl;
+    std::cout << std::endl;*/
+
+    write_mmx(filename, g);
+   // read_mmx("test.mmx", g);
+
+    //boost::print_graph(g);
+/*
     std::vector<std::vector<int>> neighbors(number_nodes); 
 
+    for (size_t i = 0; i < number_nodes; ++i)
+    {
+        ;
+    }*/
     /*
     std::string options;
     int nthreads=0;

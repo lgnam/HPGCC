@@ -10,7 +10,7 @@ project(graph_coloring)
 #set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 #Find Boost Package
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS program_options REQUIRED)
 
 if (Boost_FOUND)
     #message(STATUS "Found Boost")
@@ -20,7 +20,8 @@ else()
 endif()
 
 #Set to C++11
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp") #-fast -qopenmp")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp") #-fast -qopenmp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -std=c++11")
 
 #Set Intel Compilers
 #set(CMAKE_C_COMPILER icc)
@@ -29,7 +30,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp") #-fast -qopenmp")
 #The following folders will be included
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
-file(GLOB CXX_SOURCES src/algorithms/*.cpp)
+file(GLOB CXX_SOURCES src/*/*.cpp)
 
 #set(KMP_AFFINITY='verbose,proclist=[9,8,15,14]')
 
@@ -39,3 +40,5 @@ add_executable(graph_coloring src/main.cpp)
 
 
 target_link_libraries(graph_coloring ${Boost_LIBRARIES} ${CXX_SOURCES})
+
+file(MAKE_DIRECTORY build/data build/output)
