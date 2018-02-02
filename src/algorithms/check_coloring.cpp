@@ -14,9 +14,9 @@ bool CheckColoring(std::vector<std::vector<int>> &neighbors, std::vector<int> &v
             if (vertex_colors[vert_id] == vertex_colors[neigh_id])
             {
                 //#pragma omp atomic write
-              /*  std::cout << "WRONG COLORING" << std::endl;
+                std::cout << "WRONG COLORING" << std::endl;
                 std::cout << "vertex " << vert_id << " has color " << vertex_colors[vert_id] << std::endl;
-                std::cout << "neighbor " << neigh_id << " has color " << vertex_colors[neigh_id] << std::endl;*/
+                std::cout << "neighbor " << neigh_id << " has color " << vertex_colors[neigh_id] << std::endl;//*/
                 valid = false;
             }
         }

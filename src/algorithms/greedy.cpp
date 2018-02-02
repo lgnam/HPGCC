@@ -7,6 +7,8 @@
 #include <string>
 #include <fstream>
 
+#include "../hpgcc.hpp"
+
 bool Greedy(std::string file, std::vector<std::vector<int>> &neighbors, int size)
 {
     std::cout << std::endl;
@@ -67,6 +69,72 @@ bool Greedy(std::string file, std::vector<std::vector<int>> &neighbors, int size
     output << file << ", " << size << ", " << "Greedy" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
 
     output.close();
+
+    return true;
+}
+
+bool HPGCC::Greedy()
+{
+    std::cout << std::endl;
+    std::cout << "  Coloring " << _filename << " using Greedy Algorithm" << std::endl;
+    
+    auto begin_color = std::chrono::system_clock::now();
+
+    int max_colors = 1;
+
+    int size = neighbors.size();
+
+    std::vector<int> vertex_colors(size, 0);
+
+    //coloring algorithm
+    for (size_t vert = 1; vert < size; ++vert)
+    {
+        std::vector<int> forbiddenColors(max_colors+1, -1);
+
+        for (size_t neigh = 0; neigh < neighbors[vert].size() ; ++neigh)
+        {
+            int neigh_id = neighbors[vert][neigh];
+            forbiddenColors[ vertex_colors[neigh_id] ] = vert;
+        }
+
+        for (size_t i = 0; i < forbiddenColors.size(); ++i)
+        {
+            if (forbiddenColors[i] != vert)
+            {
+                if (i == forbiddenColors.size()-1)
+                {
+                    ++max_colors;
+                }
+                
+                vertex_colors[vert] = i;
+
+                break;
+            }
+        }
+    }
+    //end of coloring algorithm
+    std::chrono::duration<double> color_dur = std::chrono::system_clock::now() - begin_color;
+
+    bool valid = CheckColoring(neighbors, vertex_colors, size);
+    std::string valid_str = "valid";
+    //Check vertex coloring
+    if(!valid)
+    {
+        std::cerr << "  WRONGFUL COLORING DETECTED!" << std::endl;
+        //return false;
+        valid_str.clear();
+        valid_str = "invalid";
+
+    }
+
+    GetColorStats(_filename, vertex_colors, size, "Greedy");//*/
+/*
+    std::ofstream output;
+    output.open("output/times_greedy.csv", std::ofstream::app);
+
+    output << file << ", " << size << ", " << "Greedy" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
+
+    output.close();*/
 
     return true;
 }

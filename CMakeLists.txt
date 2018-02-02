@@ -41,6 +41,9 @@ add_executable(graph_coloring src/main.cpp)
 
 target_link_libraries(graph_coloring ${Boost_LIBRARIES} ${CXX_SOURCES})
 
+add_executable(test src/main.cpp)
+target_link_libraries(test ${CXX_SOURCES})
+
 file(MAKE_DIRECTORY build/data build/output)
 
 ### boost python library
@@ -53,4 +56,4 @@ include_directories(${PYTHON_INCLUDE_DIRS})
 add_library(pyhpgcc SHARED src/pyhpgcc.cpp)
 set_target_properties(pyhpgcc PROPERTIES PREFIX "" )
 set_target_properties(pyhpgcc PROPERTIES SUFFIX .so)
-target_link_libraries(pyhpgcc ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+target_link_libraries(pyhpgcc ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} ${CXX_SOURCES})

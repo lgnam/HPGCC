@@ -48,8 +48,8 @@ names.append("d")
 parameters = [number_nodes,number_edges,a,b,c,d]
 
 ## create graph outputs
-outfolder = 'output'
-exefile = './build/graph_coloring'
+outfolder = 'build/output'
+exefile = './build/RMAT_generator'
 
 if not os.path.exists(outfolder):
     os.makedirs(outfolder)
@@ -60,7 +60,7 @@ for items in product(*parameters):
         stritems = [ '%.3f' % item for item in items ]
         #stritems = list(map(str, items))
         strparam = "_".join(stritems)
-        filename = 'Graph_%s.mmx' % strparam
+        filename = 'Graph_%s.mtx' % strparam
         print(filename)
         fullpath = os.path.join(script_path, outfolder , filename)
         print(fullpath)

@@ -4,13 +4,14 @@ import sys
 
 sys.path.append('./build/')
 import pyhpgcc as hpgcc
-help(hpgcc)
+#help(hpgcc)
 
 gcc = hpgcc.HPGCC()
 
-gcc.read("test.input");
-print(gcc.filename)
-gcc.shuffle();
-print(gcc.shuffled)
-output = gcc.colorGreedy(10);
-print(output)
+gcc.Read("Graph_10.000_100.000_0.000_0.000_0.000_1.000.mtx");
+gcc.Greedy();
+#print(gcc.filename)
+#gcc.shuffle();
+#print(gcc.shuffled)
+#output = gcc.colorGreedy(10);
+#print(output)

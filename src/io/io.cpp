@@ -1,11 +1,86 @@
 #include "io.hpp"
 
+#include "../hpgcc.hpp"
+
+#include <string>
+#include <boost/graph/adjacency_list.hpp>
 #include <iostream>
 #include <fstream>
 
-bool read_mmx(std::string filename)
+bool read_mmx(std::string filename, std::vector<std::vector<int>> &neighbors)
 {
     std::cout << "Reading adjacency matrix in MMX format from " << filename << std::endl;
+
+    std::ifstream input;
+    input.open(filename.c_str());
+
+    int dimension = 0;
+
+    std::string dummyLine;
+    getline(input, dummyLine);
+
+    input >> dimension;
+
+    int hui, pfui;
+
+    input >> hui >> pfui;
+
+    std::cout << " " << dimension << " vertices in the graph" << std::endl;
+
+    neighbors.resize(dimension);
+
+    int a =0,b=0;
+    double c=0.0;
+
+    while(input >> a >> b >> c)
+    {
+       // std::cout << a << " " << b << " " << c << std::endl;
+        if ( a != b )
+        {
+            neighbors[b].push_back(a); //mtx file of bmw3_2 starts indexing with 1
+            neighbors[a].push_back(b);
+        }
+    } //end of while(in_file)
+
+    return true;
+}
+
+bool HPGCC::Read(std::string filename)
+{
+    _filename=filename;
+    std::cout << "Reading adjacency matrix in MTX format from " << filename << std::endl;
+
+    std::ifstream input;
+    input.open(filename.c_str());
+
+    int dimension = 0;
+
+    std::string dummyLine;
+    getline(input, dummyLine);
+
+    input >> dimension;
+
+    int hui, pfui;
+
+    input >> hui >> pfui;
+
+    std::cout << " " << dimension << " vertices in the graph" << std::endl;
+
+    neighbors.resize(dimension);
+
+    int a =0,b=0;
+    double c=0.0;
+
+    while(input >> a >> b >> c)
+    {
+        //std::cout << a << " " << b << " " << c << std::endl;
+        if ( a != b )
+        {
+            neighbors[b].push_back(a); //mtx file of bmw3_2 starts indexing with 1
+            neighbors[a].push_back(b);
+        }
+    } //end of while(in_file)
+
     return true;
 }
 
@@ -38,7 +113,7 @@ bool write_mmx(std::string filename, boost::adjacency_list<> g)
         {
            // std::cout << "  " << *neighbours.first << std::endl;
 
-            output << *vp.first << " " << *neighbours.first << std::endl;
+            output << *vp.first << " " << *neighbours.first << " " << 0 << std::endl;
         }
     }
 

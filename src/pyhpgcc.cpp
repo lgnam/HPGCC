@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "hpgcc.h"
+#include "hpgcc.hpp"
 #include <boost/python.hpp>
 
 namespace hpgcc {
@@ -8,12 +8,12 @@ namespace python {
 
 void exportPythonModule() {
 
-  boost::python::class_<hpgcc::HPGCC>("HPGCC", boost::python::init<>())
-      .def("read", &hpgcc::HPGCC::read)
-      .def("shuffle", &hpgcc::HPGCC::shuffle)
-      .def("colorGreedy", &hpgcc::HPGCC::colorGreedy)
-      .def_readwrite("filename", &hpgcc::HPGCC::filename)
-      .def_readwrite("shuffled", &hpgcc::HPGCC::shuffled);
+  boost::python::class_<HPGCC>("HPGCC", boost::python::init<>())
+      .def("Read", &HPGCC::Read)
+      //.def("shuffle", &hpgcc::HPGCC::shuffle)
+      .def("Greedy", &HPGCC::Greedy);
+      //.def_readwrite("filename", &hpgcc::HPGCC::filename)
+      //.def_readwrite("shuffled", &hpgcc::HPGCC::shuffled);
 }
 
 // define python package
