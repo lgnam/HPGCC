@@ -10,7 +10,7 @@ project(graph_coloring)
 #set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 #Find Boost Package
-find_package(Boost COMPONENTS program_options REQUIRED)
+find_package(Boost COMPONENTS program_options python REQUIRED)
 
 if (Boost_FOUND)
     #message(STATUS "Found Boost")
@@ -42,3 +42,15 @@ add_executable(graph_coloring src/main.cpp)
 target_link_libraries(graph_coloring ${Boost_LIBRARIES} ${CXX_SOURCES})
 
 file(MAKE_DIRECTORY build/data build/output)
+
+### boost python library
+### install on ubuntu: libboost-python-*
+find_package(PythonLibs 2.7 REQUIRED)
+message("PYTHONLIBS_VERSION_STRING=" ${PYTHONLIBS_VERSION_STRING})
+message("PYTHON_LIBRARIES=" ${PYTHON_LIBRARIES})
+include_directories(${PYTHON_INCLUDE_DIRS})
+
+add_library(pyhpgcc SHARED src/pyhpgcc.cpp)
+set_target_properties(pyhpgcc PROPERTIES PREFIX "" )
+set_target_properties(pyhpgcc PROPERTIES SUFFIX .so)
+target_link_libraries(pyhpgcc ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
