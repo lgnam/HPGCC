@@ -10,8 +10,11 @@ bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size,
 {
     std::cout << "  Getting color population" << std::endl;
 
+    auto iter = input.find_last_of("/");
+
     std::string filename = "output/";
-    filename+=input;
+    //filename+=input;
+    filename+=input.substr(iter+1);
     filename+="_color_population_";
     filename+=algo;
     filename+="_";
@@ -22,6 +25,8 @@ bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size,
     file.open(filename.c_str());
 
     int colors = *( std::max_element(vertex_colors.begin(), vertex_colors.end()) ) + 1;
+
+    file << "# " << input.substr(iter+1) << ", " << threads << std::endl;
 
     std::vector<std::vector<int>> color_vertices(colors);
     

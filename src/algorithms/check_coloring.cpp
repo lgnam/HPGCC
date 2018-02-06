@@ -6,7 +6,7 @@ bool CheckColoring(std::vector<std::vector<int>> &neighbors, std::vector<int> &v
 {
     bool valid = true;
     //Check vertex coloring
-    std::cout << "  Checking coloring" << std::endl;
+    std::cout << "  Checking coloring";
     for (size_t vert_id = 0; vert_id < size; ++vert_id)
     {
         for (auto neigh_id : neighbors[vert_id])

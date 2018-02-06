@@ -11,7 +11,11 @@ void exportPythonModule() {
   boost::python::class_<HPGCC>("HPGCC", boost::python::init<>())
       .def("Read", &HPGCC::Read)
       //.def("shuffle", &hpgcc::HPGCC::shuffle)
-      .def("Greedy", &HPGCC::Greedy);
+      .def("Greedy", &HPGCC::Greedy)
+      .def("GreedyLU", &HPGCC::GreedyLU)
+      .def("Catalyurek", &HPGCC::Catalyurek)
+      .def("SchedRev", &HPGCC::SchedRev)
+      .def("Shuffle", &HPGCC::Shuffle);
       //.def_readwrite("filename", &hpgcc::HPGCC::filename)
       //.def_readwrite("shuffled", &hpgcc::HPGCC::shuffled);
 }

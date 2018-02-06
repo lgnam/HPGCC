@@ -76,7 +76,7 @@ bool Greedy(std::string file, std::vector<std::vector<int>> &neighbors, int size
 bool HPGCC::Greedy()
 {
     std::cout << std::endl;
-    std::cout << "  Coloring " << _filename << " using Greedy Algorithm" << std::endl;
+    std::cout << "Greedy Algorithm" << std::endl;
     
     auto begin_color = std::chrono::system_clock::now();
 
@@ -85,6 +85,8 @@ bool HPGCC::Greedy()
     int size = neighbors.size();
 
     std::vector<int> vertex_colors(size, 0);
+
+    std::cout << size << std::endl;
 
     //coloring algorithm
     for (size_t vert = 1; vert < size; ++vert)
@@ -126,15 +128,19 @@ bool HPGCC::Greedy()
         valid_str = "invalid";
 
     }
+    
+    std::cout << " -> " << valid_str << std::endl;
 
     GetColorStats(_filename, vertex_colors, size, "Greedy");//*/
-/*
+
     std::ofstream output;
     output.open("output/times_greedy.csv", std::ofstream::app);
 
-    output << file << ", " << size << ", " << "Greedy" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
+    output << _filename << ", " << size << ", " << "Greedy" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
 
-    output.close();*/
+    output.close();
+
+    std::cout << " Time: " << color_dur.count() << " s" << std::endl;
 
     return true;
 }

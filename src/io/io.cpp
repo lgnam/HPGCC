@@ -6,7 +6,7 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <iostream>
 #include <fstream>
-
+/*
 bool read_mmx(std::string filename, std::vector<std::vector<int>> &neighbors)
 {
     std::cout << "Reading adjacency matrix in MMX format from " << filename << std::endl;
@@ -43,15 +43,22 @@ bool read_mmx(std::string filename, std::vector<std::vector<int>> &neighbors)
     } //end of while(in_file)
 
     return true;
-}
+}*/
 
 bool HPGCC::Read(std::string filename)
 {
-    _filename=filename;
+    auto iter = filename.find(".mtx");
+    _filename=filename.substr(0, iter);
     std::cout << "Reading adjacency matrix in MTX format from " << filename << std::endl;
 
     std::ifstream input;
     input.open(filename.c_str());
+
+    if (!input)
+    {
+        std::cerr << "Error when opening file..." << std::endl;
+        return false;
+    }
 
     int dimension = 0;
 
@@ -76,10 +83,12 @@ bool HPGCC::Read(std::string filename)
         //std::cout << a << " " << b << " " << c << std::endl;
         if ( a != b )
         {
-            neighbors[b].push_back(a); //mtx file of bmw3_2 starts indexing with 1
-            neighbors[a].push_back(b);
+            neighbors[b-1].push_back(a-1); //mtx file of bmw3_2 starts indexing with 1
+            neighbors[a-1].push_back(b-1);
         }
     } //end of while(in_file)
+
+    GetMaxDegree();
 
     return true;
 }
