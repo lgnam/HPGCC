@@ -26,7 +26,7 @@ bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size,
 
     int colors = *( std::max_element(vertex_colors.begin(), vertex_colors.end()) ) + 1;
 
-    file << "# " << input.substr(iter+1) << ", " << algo << ", " << threads;
+    file << "# " << input.substr(iter+1) << ", " << algo << ", " << threads << ", ";
     
     for (auto time : times)
         file << time << ", ";
