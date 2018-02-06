@@ -223,8 +223,13 @@ bool SchedRev(std::string file, std::vector<std::vector<int>> &neighbors, int si
 
     }
 
-    GetColorStats(file, vertex_colors, size, "Sched-Rev", nthreads);
-//*/
+    std::vector<double> times;
+    times.push_back(total_color_dur.count());
+    times.push_back(total_color_dur.count() - sched_time);
+    times.push_back(sched_time);
+
+    GetColorStats(file, vertex_colors, size, "Sched-Rev", nthreads, times);//*/
+
     std::ofstream output;
     output.open("output/times_sched-rev.csv", std::ofstream::app);
 
@@ -452,8 +457,13 @@ bool HPGCC::SchedRev(int nthreads)
 
     std::cout << " -> " << valid_str << std::endl;
 
-    GetColorStats(_filename, vertex_colors, size, "Sched-Rev", nthreads);
-//*/
+    std::vector<double> times;
+    times.push_back(total_color_dur.count());
+    times.push_back(total_color_dur.count() - sched_time);
+    times.push_back(sched_time);
+
+    GetColorStats(_filename, vertex_colors, size, "Sched-Rev", nthreads, times);//*/
+
     std::ofstream output;
     output.open("output/times_sched-rev.csv", std::ofstream::app);
 
@@ -464,8 +474,8 @@ bool HPGCC::SchedRev(int nthreads)
     output.close();
 
     std::cout << " Time: " << total_color_dur.count() << " s" << std::endl;
-    std::cout << "  Preparation Time: " << total_color_dur.count() - sched_time << std::endl;
-    std::cout << "  Scheduling Time : " << sched_time << std::endl;
+    std::cout << "  Preparation Time: " << total_color_dur.count() - sched_time << " s" << std::endl;
+    std::cout << "  Scheduling Time : " << sched_time << " s" << std::endl;
 
     return true;
 }

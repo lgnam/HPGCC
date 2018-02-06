@@ -4,6 +4,6 @@
 #include <vector>
 #include <string>
 
-bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size, std::string algo, int threads=1);
+bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size, std::string algo, int threads, std::vector<double>& times);
 
 #endif

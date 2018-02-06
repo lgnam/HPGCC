@@ -139,8 +139,11 @@ bool GreedyLU(std::string file, std::vector<std::vector<int>> &neighbors, int si
         valid_str = "invalid";
 
     }
+    std::vector<double> times;
+    times.push_back(color_dur.count());
+
     //Get Statistics of Coloring
-    GetColorStats(file, vertex_colors, size, "Greedy-LU");
+    GetColorStats(file, vertex_colors, size, "Greedy-LU", 1, times);
 /*
     std::cout << "  Finished Greedy-LU Algorithm using " << "1" << " thread" << std::endl;
     std::cout << "    Colors: " << max_colors << std::endl;
@@ -291,8 +294,11 @@ bool HPGCC::GreedyLU()
 
     std::cout << " -> " << valid_str << std::endl;
 
+    std::vector<double> times;
+    times.push_back(color_dur.count());
+
     //Get Statistics of Coloring
-    GetColorStats(_filename, vertex_colors, size, "Greedy-LU");
+    GetColorStats(_filename, vertex_colors, size, "Greedy-LU", 1, times);
 /*
     std::cout << "  Finished Greedy-LU Algorithm using " << "1" << " thread" << std::endl;
     std::cout << "    Colors: " << max_colors << std::endl;
@@ -305,6 +311,8 @@ bool HPGCC::GreedyLU()
     output << _filename << ", " << size << ", " << "Greedy-LU" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
 
     output.close();
+
+    std::cout << " Time: " << color_dur.count() << " s" << std::endl;
 
     return true;
 }

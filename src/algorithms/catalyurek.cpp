@@ -98,7 +98,11 @@ bool Catalyurek(std::string file, std::vector<std::vector<int>> &neighbors, int 
         valid_str = "invalid";
 
     }
-    GetColorStats(file, vertex_colors, size, "Catalyurek", nthreads);//*/
+    
+    std::vector<double> times;
+    times.push_back(total_color_dur.count());
+
+    GetColorStats(file, vertex_colors, size, "Catalyurek", nthreads, times);//*/
 
     std::ofstream output;
     output.open("output/times_catalyurek.csv", std::ofstream::app);
@@ -202,7 +206,10 @@ bool HPGCC::Catalyurek(int nthreads)
 
     std::cout << " -> " << valid_str << std::endl;
 
-    GetColorStats(_filename, vertex_colors, size, "Catalyurek", nthreads);//*/
+    std::vector<double> times;
+    times.push_back(total_color_dur.count());
+
+    GetColorStats(_filename, vertex_colors, size, "Catalyurek", nthreads, times);//*/
 
     std::ofstream output;
     output.open("output/times_catalyurek.csv", std::ofstream::app);

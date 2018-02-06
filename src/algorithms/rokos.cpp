@@ -162,8 +162,13 @@ bool Rokos(std::string file, std::vector<std::vector<int>> &neighbors, int size,
         valid_str = "invalid";
 
     }
+
+    std::vector<double> times;
+    times.push_back(total_color_dur.count());
+    times.push_back(tentative_color_dur.count());
+    times.push_back(total_color_dur.count()-tentative_color_dur.count());
     
-    GetColorStats(file, vertex_colors, size, "Rokos", nthreads);//*/
+    GetColorStats(file, vertex_colors, size, "Rokos", nthreads, times);//*/
 
     std::ofstream output;
     output.open("output/times_rokos.csv", std::ofstream::app);

@@ -49,7 +49,7 @@ bool HPGCC::Read(std::string filename)
 {
     auto iter = filename.find(".mtx");
     _filename=filename.substr(0, iter);
-    std::cout << "Reading adjacency matrix in MTX format from " << filename << std::endl;
+    std::cout << std::endl << "Reading adjacency matrix in MTX format from " << filename << std::endl;
 
     std::ifstream input;
     input.open(filename.c_str());
@@ -89,6 +89,8 @@ bool HPGCC::Read(std::string filename)
     } //end of while(in_file)
 
     GetMaxDegree();
+
+    std::cout << std::endl;
 
     return true;
 }
