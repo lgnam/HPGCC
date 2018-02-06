@@ -42,7 +42,7 @@ bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size,
 
     for (size_t i = 0; i < color_vertices.size(); ++i)
     {
-        file << "          " << i << " | " << color_vertices[i].size() << std::endl;
+        file << i << ", " << color_vertices[i].size() << std::endl;
 
         //std::cout << "          " << i << " | ";
        /* for (auto it : color_vertices[i])
