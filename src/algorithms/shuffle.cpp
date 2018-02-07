@@ -2,15 +2,19 @@
 #include "shuffle.hpp"
 
 #include <iostream>
-#include <map>
+#include <unordered_map>
 
 #include <random>
 #include <functional>
 #include <algorithm>
 
+#include <chrono>
+
 bool HPGCC::Shuffle()
 {
     std::cout << "Shuffling vertex indices of " << _filename << std::endl;
+
+    auto begin_time = std::chrono::system_clock::now();
 
     //std::cout << neighbors.size() << std::endl;
 
@@ -18,7 +22,7 @@ bool HPGCC::Shuffle()
 
    // std::cout << old_neighbors.size() << std::endl;
 
-    std::map<int, int> index_remapping;
+    std::unordered_map<int, int> index_remapping;
 
     std::vector<int> new_indices(neighbors.size());
     std::vector<int> old_indices(neighbors.size());
@@ -34,10 +38,16 @@ bool HPGCC::Shuffle()
 
     std::shuffle(new_indices.begin(), new_indices.end(), mersenne_engine);   
     
+    std::chrono::duration<double> prep_time = std::chrono::system_clock::now() - begin_time;
+
+    begin_time = std::chrono::system_clock::now();
+
     for (size_t i = 0; i < neighbors.size(); ++i)
     {
         index_remapping.insert(std::pair<int,int>(old_indices[i], new_indices[i]));
     }
+
+    std::chrono::duration<double> for1_time = std::chrono::system_clock::now() - begin_time;
 
     /*DEBUG*/
     /*for (auto it : index_remapping)
@@ -45,6 +55,8 @@ bool HPGCC::Shuffle()
         std::cout << it.first << " " << it.second << std::endl;
     }//*/
     /*END OF DEBUG*/
+
+    begin_time = std::chrono::system_clock::now();
 
     neighbors.empty();
     neighbors.resize(old_neighbors.size());
@@ -56,6 +68,12 @@ bool HPGCC::Shuffle()
             neighbors[index_remapping[i]].push_back(index_remapping[old_neighbors[i][j]]);
         }
     }
+
+    std::chrono::duration<double> remap_time = std::chrono::system_clock::now() - begin_time;
+
+    std::cout << "  Prep Time: " << prep_time.count() << std::endl;
+    std::cout << "  Create Map Time: " << for1_time.count() << std::endl;
+    std::cout << "  Remap Time: " << remap_time.count() << std::endl;
 
     return true;
 }

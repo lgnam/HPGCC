@@ -48,7 +48,8 @@ std::endl;
     return true;
 }*/
 
-bool HPGCC::Read(std::string filename) {
+bool HPGCC::Read(std::string filename) 
+{
   auto iter = filename.find(".mtx");
   _filename = filename.substr(0, iter);
   std::cout << std::endl
@@ -66,22 +67,18 @@ bool HPGCC::Read(std::string filename) {
   int dimension = 0;
   int hui, pfui;
   std::string dummyLine;
-  while (getline(input, dummyLine)) {
-    std::cout << dummyLine << std::endl;
-    //   std::cout << dummyLine.at(0) << std::endl;
-    if (!dummyLine.compare(0, 1, "%")) {
-      std::cout << "skipped %" << std::endl;
-    } else {
+  while (getline(input, dummyLine)) 
+  {
+    if (!dummyLine.compare(0, 1, "%")) 
+    {
+      ;
+    } 
+    
+    else 
+    {
       std::smatch res;
-      const std::regex myRegex("\\d"); // parantheses need to be escaped
-      //   if (std::regex_match(dummyLine, res, myRegex)) {
-      std::cout << dummyLine.substr(0, dummyLine.find(' ')) << std::endl;
+      const std::regex myRegex("\\d");
       dimension = std::stoi(dummyLine.substr(0, dummyLine.find(' ')));
-      std::cout << dimension << std::endl;
-      //   }
-      //   input >> dimension;
-      //   input >> hui >> pfui;
-      //   std::cout << "hui pfui" << std::endl;
       break;
     }
   }
