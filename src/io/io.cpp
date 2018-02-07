@@ -50,8 +50,14 @@ std::endl;
 
 bool HPGCC::Read(std::string filename) 
 {
-  auto iter = filename.find(".mtx");
-  _filename = filename.substr(0, iter);
+  std::size_t iter = filename.find(".mtx");
+  std::size_t begin = filename.find_last_of("/");
+  if (begin == filename.npos )
+  {
+    begin=0;
+  }
+
+  _filename = filename.substr(begin+1, iter-begin-1);
   std::cout << std::endl
             << "Reading adjacency matrix in MTX format from " << filename
             << std::endl;
@@ -60,7 +66,7 @@ bool HPGCC::Read(std::string filename)
   input.open(filename.c_str());
 
   if (!input) {
-    std::cerr << "Error when opening file..." << std::endl;
+    std::cerr << "  Error when opening file '" << filename << "'" << std::endl;
     return false;
   }
 
@@ -85,6 +91,7 @@ bool HPGCC::Read(std::string filename)
 
   std::cout << " " << dimension << " vertices in the graph" << std::endl;
 
+  neighbors.empty();
   neighbors.resize(dimension);
 
   int a = 0, b = 0;

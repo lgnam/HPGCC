@@ -3,24 +3,32 @@
 
 #include "hpgcc.hpp"
 
-int main ()
+int main (int argc, char *argv[])
 {
-    int nthreads = 1;
+    if (argc < 2)
+    {
+        std::cout << "Filename is missing!" << std::endl;
+        return -1;
+    }
+   //int nthreads = 1;
     HPGCC Coloring;
     
-    std::string filename = "cit-Patents.mtx";
+    std::string filename = argv[1];
 
-    auto begin_time = std::chrono::system_clock::now();
-    Coloring.Read(filename);
-    std::chrono::duration<double> read_time = std::chrono::system_clock::now() - begin_time;
+   // auto begin_time = std::chrono::system_clock::now();
+   if( !Coloring.Read(filename.c_str()))
+   {
+       return -1;
+   }
+   // std::chrono::duration<double> read_time = std::chrono::system_clock::now() - begin_time;
     
-    begin_time = std::chrono::system_clock::now();
+   // begin_time = std::chrono::system_clock::now();
     Coloring.Shuffle();    
-    std::chrono::duration<double> shuffle_time = std::chrono::system_clock::now() - begin_time;
-
+   // std::chrono::duration<double> shuffle_time = std::chrono::system_clock::now() - begin_time;
+/*
     std::cout << "read time: " << read_time.count() << std::endl;
     std::cout << "shuffle time: " << shuffle_time.count() << std::endl;
-
+*/
     Coloring.Greedy();
     Coloring.GreedyLU();
     Coloring.Catalyurek(1);
