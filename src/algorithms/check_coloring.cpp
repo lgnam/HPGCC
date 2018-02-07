@@ -1,13 +1,14 @@
-#include "check_coloring.hpp"
-
 #include <iostream>
 
-bool CheckColoring(std::vector<std::vector<int>> &neighbors, std::vector<int> &vertex_colors, int size)
+#include "../hpgcc.hpp"
+
+//bool CheckColoring(std::vector<std::vector<int>> &neighbors, std::vector<int> &vertex_colors, int size)
+bool HPGCC::CheckColoring(std::vector<int> &vertex_colors)
 {
     bool valid = true;
     //Check vertex coloring
     std::cout << "  Checking coloring";
-    for (size_t vert_id = 0; vert_id < size; ++vert_id)
+    for (size_t vert_id = 0; vert_id < neighbors.size(); ++vert_id)
     {
         for (auto neigh_id : neighbors[vert_id])
         {

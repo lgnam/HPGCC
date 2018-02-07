@@ -10,8 +10,10 @@
 
 #include <chrono>
 
-bool HPGCC::Shuffle()
+bool HPGCC::Shuffle(int shuffles)
 {
+    num_shuffles = shuffles;
+
     std::cout << "Shuffling vertex indices of " << _filename << std::endl;
 
     auto begin_time = std::chrono::system_clock::now();
@@ -36,7 +38,8 @@ bool HPGCC::Shuffle()
     std::mt19937 mersenne_engine(rnd_device());
     std::uniform_int_distribution<int> dist(1, 52);
 
-    std::shuffle(new_indices.begin(), new_indices.end(), mersenne_engine);   
+    for (size_t i = 0; i < num_shuffles; i++)
+        std::shuffle(new_indices.begin(), new_indices.end(), mersenne_engine);   
     
     std::chrono::duration<double> prep_time = std::chrono::system_clock::now() - begin_time;
 

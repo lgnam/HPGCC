@@ -1,32 +1,38 @@
-#include "get_color_stats.hpp"
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <string>
 #include <fstream>
 
-bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size, std::string algo, int threads, std::vector<double>& times)
+#include "../hpgcc.hpp"
+
+//bool GetColorStats(std::string input, std::vector<int>& vertex_colors, int size, std::string algo, int threads, std::vector<double>& times, int num_shuffles)
+bool HPGCC::GetColorStats(std::vector<int>& vertex_colors, std::string algo, int threads, std::vector<double>& times)
 {
     std::cout << "  Getting color population" << std::endl;
 
-    auto iter = input.find_last_of("/");
+    //auto iter = input.find_last_of("/");
 
-    std::string filename = "output/";
-    //filename+=input;
-    filename+=input.substr(iter+1);
-    filename+="_color_population_";
-    filename+=algo;
-    filename+="_";
-    filename+=std::to_string(threads);
-    filename+="_threads.csv";
+    std::string output = "output/";
+    //output+=input;
+    //output+=input.substr(iter+1);
+    output+=_filename;
+    output+="_color_population_";
+    output+=algo;
+    output+="_";
+    output+=std::to_string(threads);
+    output+="_threads_";
+    output+=num_shuffles;
+    output+="_shuffles";
+    output+=".csv";
 
     std::ofstream file;
-    file.open(filename.c_str());
+    file.open(output.c_str());
 
     int colors = *( std::max_element(vertex_colors.begin(), vertex_colors.end()) ) + 1;
 
-    file << "# " << input.substr(iter+1) << ", " << algo << ", " << threads << ", ";
+    //file << "# " << input.substr(iter+1) << ", " << algo << ", " << threads << ", " << num_shuffles << ", ";,
+    file << "# " << _filename << ", " << algo << ", " << threads << ", " << num_shuffles << ", ";
     
     for (auto time : times)
         file << time << ", ";

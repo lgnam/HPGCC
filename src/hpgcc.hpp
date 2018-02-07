@@ -22,7 +22,7 @@ class HPGCC
         bool SchedRev(int num_threads=1);
 
         //Helper Functions
-        bool Shuffle();
+        bool Shuffle(int shuffles=1);
         bool GetMaxDegree() 
         {
             std::vector<int> degrees(neighbors.size(),0);
@@ -41,9 +41,15 @@ class HPGCC
         };
 
     private:
+
+        bool GreedyInit(std::vector<int>& vertex_colors, int* colors, std::vector<int>& num_color_vertices);
+        bool GetColorStats(std::vector<int>& vertex_colors, std::string algo, int threads, std::vector<double>& times);
+        bool CheckColoring(std::vector<int> &vertex_colors);
+
         std::vector<std::vector<int>> neighbors;
         std::string _filename;
         int max_degree;
+        int num_shuffles;
         //int nthreads;
 };
 
