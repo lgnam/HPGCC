@@ -22,7 +22,7 @@ bool HPGCC::GetColorStats(std::vector<int>& vertex_colors, std::string algo, int
     output+="_";
     output+=std::to_string(threads);
     output+="_threads_";
-    output+=num_shuffles;
+    output+=std::to_string(num_shuffles);
     output+="_shuffles";
     output+=".csv";
 

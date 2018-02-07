@@ -14,7 +14,7 @@ bool HPGCC::Shuffle(int shuffles)
 {
     num_shuffles = shuffles;
 
-    std::cout << "Shuffling vertex indices of " << _filename << std::endl;
+    std::cout << "Shuffling " << num_shuffles << " times the vertex indices of " << _filename << std::endl;
 
     auto begin_time = std::chrono::system_clock::now();
 
