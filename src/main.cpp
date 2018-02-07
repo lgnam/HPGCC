@@ -20,7 +20,8 @@ int main ()
 
     std::cout << "read time: " << read_time.count() << std::endl;
     std::cout << "shuffle time: " << shuffle_time.count() << std::endl;
-  /*  Coloring.Greedy();
+
+    Coloring.Greedy();
     Coloring.GreedyLU();
     Coloring.Catalyurek(1);
     Coloring.Catalyurek(2);
@@ -30,6 +31,6 @@ int main ()
     Coloring.SchedRev(2);
     Coloring.SchedRev(4);
     Coloring.SchedRev(8);
-*/
+//*/
     return 0;
 }

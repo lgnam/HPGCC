@@ -70,10 +70,10 @@ bool HPGCC::Shuffle()
     }
 
     std::chrono::duration<double> remap_time = std::chrono::system_clock::now() - begin_time;
-
+/*
     std::cout << "  Prep Time: " << prep_time.count() << std::endl;
     std::cout << "  Create Map Time: " << for1_time.count() << std::endl;
-    std::cout << "  Remap Time: " << remap_time.count() << std::endl;
+    std::cout << "  Remap Time: " << remap_time.count() << std::endl;//*/
 
     return true;
 }
