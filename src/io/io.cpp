@@ -100,8 +100,7 @@ bool HPGCC::Read(std::string filename)
   while (input >> a >> b >> c) {
     // std::cout << a << " " << b << " " << c << std::endl;
     if (a != b) {
-      neighbors[b - 1].push_back(
-          a - 1); // mtx file of bmw3_2 starts indexing with 1
+      neighbors[b - 1].push_back(a - 1); // mtx file of bmw3_2 starts indexing with 1
       neighbors[a - 1].push_back(b - 1);
     }
   } // end of while(in_file)
@@ -109,6 +108,21 @@ bool HPGCC::Read(std::string filename)
   GetMaxDegree();
 
   std::cout << std::endl;
+
+  return true;
+}
+
+bool HPGCC::Write(std::string out_file) 
+{
+  std::cout << "Writing adjacency matrix in MMX format into " << out_file
+  << std::endl;
+
+  std::ofstream output;
+  output.open("shuffled.mtx");
+
+  output << "%%MatrixMarket matrix coordinate real general" << std::endl;
+
+  output << neighbors.size() << " " << neighbors.size() << " " << "0" << std::endl;
 
   return true;
 }

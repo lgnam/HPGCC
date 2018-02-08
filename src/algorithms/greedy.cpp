@@ -86,7 +86,7 @@ bool HPGCC::GreedyInit(std::vector<int>& vertex_colors, int* colors, std::vector
     std::cout << "  Inital Greedy coloring" << std::endl;*/
         int max_colors = 1;
 
-   // vertex_colors.resize(size, 0);
+    vertex_colors.resize(size, 0);
 
     //coloring algorithm
     for (size_t vert = 0; vert < size; ++vert)

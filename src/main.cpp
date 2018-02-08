@@ -23,7 +23,7 @@ int main (int argc, char *argv[])
    // std::chrono::duration<double> read_time = std::chrono::system_clock::now() - begin_time;
     
    // begin_time = std::chrono::system_clock::now();
-    Coloring.Shuffle(1);    
+   Coloring.Shuffle(1);    
    // std::chrono::duration<double> shuffle_time = std::chrono::system_clock::now() - begin_time;
 /*
     std::cout << "read time: " << read_time.count() << std::endl;

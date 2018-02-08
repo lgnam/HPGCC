@@ -14,13 +14,13 @@ bool HPGCC::Shuffle(int shuffles)
 {
     num_shuffles = shuffles;
 
-    std::cout << "Shuffling " << num_shuffles << " times the vertex indices of " << _filename << std::endl;
+    std::cout << "Shuffling vertex indices " << num_shuffles << " time(s)" << std::endl;
 
     auto begin_time = std::chrono::system_clock::now();
 
     //std::cout << neighbors.size() << std::endl;
 
-    std::vector<std::vector<int>> old_neighbors = neighbors;
+    std::vector<std::vector<int>> old_neighbors (neighbors);
 
    // std::cout << old_neighbors.size() << std::endl;
 
@@ -31,6 +31,9 @@ bool HPGCC::Shuffle(int shuffles)
 
     std::iota(new_indices.begin(), new_indices.end(), 0);
     std::iota(old_indices.begin(), old_indices.end(), 0);
+
+   /* for (auto it : new_indices)
+        std::cout << it << std::endl;*/
 
     // First create an instance of an engine.
     std::random_device rnd_device;
@@ -44,38 +47,37 @@ bool HPGCC::Shuffle(int shuffles)
     std::chrono::duration<double> prep_time = std::chrono::system_clock::now() - begin_time;
 
     begin_time = std::chrono::system_clock::now();
-
+/*
     for (size_t i = 0; i < neighbors.size(); ++i)
     {
         index_remapping.insert(std::pair<int,int>(old_indices[i], new_indices[i]));
     }
 
     std::chrono::duration<double> for1_time = std::chrono::system_clock::now() - begin_time;
-
-    /*DEBUG*/
-    /*for (auto it : index_remapping)
-    {
-        std::cout << it.first << " " << it.second << std::endl;
-    }//*/
-    /*END OF DEBUG*/
-
+*/
     begin_time = std::chrono::system_clock::now();
 
-    neighbors.empty();
+    neighbors.clear();
     neighbors.resize(old_neighbors.size());
 
     for (size_t i = 0; i < old_neighbors.size(); ++i)
     {
         for (size_t j = 0; j < old_neighbors[i].size(); ++j)
         {
-            neighbors[index_remapping[i]].push_back(index_remapping[old_neighbors[i][j]]);
+            //neighbors[index_remapping[i]].push_back(index_remapping[old_neighbors[i][j]]);
+            neighbors[ new_indices[i] ].push_back( new_indices[old_neighbors[i][j]] );
+
+            /*std::cout << index_remapping[i] << " " << new_indices[i] << std::endl;
+            std::cout << index_remapping[old_neighbors[i][j]] << " " << new_indices[old_neighbors[i][j]] << std::endl;*/
         }
+
+       // std::cout << std::endl;
     }
 
     std::chrono::duration<double> remap_time = std::chrono::system_clock::now() - begin_time;
-/*
+
     std::cout << "  Prep Time: " << prep_time.count() << std::endl;
-    std::cout << "  Create Map Time: " << for1_time.count() << std::endl;
+   // std::cout << "  Create Map Time: " << for1_time.count() << std::endl;
     std::cout << "  Remap Time: " << remap_time.count() << std::endl;//*/
 
     return true;

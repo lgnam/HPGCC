@@ -13,7 +13,7 @@ class HPGCC
 
         //IO functions
         bool Read(std::string filename);    //read graph
-        bool Write();
+        bool Write(std::string out_file);
 
         //coloring algorithms
         bool Greedy();
