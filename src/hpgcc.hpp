@@ -9,7 +9,7 @@
 class HPGCC
 {
     public:
-        /*HPGCC(int num_threads) : nthreads{num_threads} {};        //constructor*/
+        HPGCC(int num_shuffles=0) : num_shuffles{num_shuffles} {};        //constructor*/
 
         //IO functions
         bool Read(std::string filename);    //read graph
@@ -36,9 +36,11 @@ class HPGCC
             }
         
             //find maximum degree
-            max_degree = *(std::max_element(degrees.begin(), degrees.end()));
+            max_degree = *(std::max_element(degrees.begin(), degrees.end()))+1;
             std::cout << " Max Degree: " << max_degree << std::endl;
         };
+
+        bool OrderGraph(std::string heuristic);
 
     private:
 
@@ -46,8 +48,13 @@ class HPGCC
         bool GetColorStats(std::vector<int>& vertex_colors, std::string algo, int threads, std::vector<double>& times);
         bool CheckColoring(std::vector<int> &vertex_colors);
 
+    
+        /*bool LargestDegreeFirst();
+        bool SmallestDegreeFirst();*/
+
         std::vector<std::vector<int>> neighbors;
         std::string _filename;
+        std::string heuristic;
         int max_degree;
         int num_shuffles;
         //int nthreads;

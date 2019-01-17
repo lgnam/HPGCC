@@ -60,3 +60,6 @@ if (ENABLE_EXAMPLES)
     add_executable(example src/main.cpp)
     target_link_libraries(example ${CXX_SOURCES})
 endif()
+
+add_executable(RMAT_generator src/rmat_gen.cpp)
+target_link_libraries(RMAT_generator ${Boost_LIBRARIES} ${CXX_SOURCES})
