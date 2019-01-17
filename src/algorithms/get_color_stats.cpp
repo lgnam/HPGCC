@@ -22,6 +22,9 @@ bool HPGCC::GetColorStats(std::vector<int>& vertex_colors, std::string algo, int
         num_edges+= neighbors[i].size();
     }
 
+    //since we've counted each edge twice, correct the number
+    num_edges = num_edges/2;
+
     //find maximum degree
     int max_degree = *(std::max_element(degrees.begin(), degrees.end())) +1;
 
@@ -32,18 +35,13 @@ bool HPGCC::GetColorStats(std::vector<int>& vertex_colors, std::string algo, int
     std::cout << "  Avg Degree: " << avg << std::endl;
 
     std::cout << "  Num Edges " << num_edges << std::endl;
-
+    /*
     //get degree distribution
     std::vector<int> degree_dist(max_degree,0);
 
     for (auto it : degrees)
     {
         degree_dist[it]++;
-        /*if (it == max_degree)
-            std::cout << it << std::endl;
-
-        else if (it == 0)
-            std::cout << it << std::endl;*/
     }
     //end of get graph stats
     
@@ -66,7 +64,7 @@ bool HPGCC::GetColorStats(std::vector<int>& vertex_colors, std::string algo, int
         file_dist << degree_dist[i] << std::endl;
     }
 
-    file_dist.close();
+    file_dist.close();//*/
 
     //auto iter = input.find_last_of("/");
 

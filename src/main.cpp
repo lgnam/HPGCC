@@ -29,7 +29,7 @@ int main (int argc, char *argv[])
     // std::chrono::duration<double> read_time = std::chrono::system_clock::now() - begin_time;
         
     // begin_time = std::chrono::system_clock::now();
-    /*Coloring.Shuffle(1);    //*/
+    Coloring.Shuffle(1);    //*/
     // std::chrono::duration<double> shuffle_time = std::chrono::system_clock::now() - begin_time;
 /*
     std::cout << "read time: " << read_time.count() << std::endl;
@@ -44,10 +44,12 @@ int main (int argc, char *argv[])
     Coloring.Catalyurek(2);
     Coloring.Catalyurek(4);
     Coloring.Catalyurek(8);
+    Coloring.Catalyurek(16);
     Coloring.SchedRev(1);
     Coloring.SchedRev(2);
     Coloring.SchedRev(4);
     Coloring.SchedRev(8);
+    Coloring.SchedRev(16);
 //*/
     return 0;
 }
