@@ -10,7 +10,7 @@ int main (int argc, char *argv[])
         std::cout << "Filename is missing!" << std::endl;
         return -1;
     }
-   //int nthreads = 1;
+    
     HPGCC Coloring;
     
     std::string filename = argv[1];
@@ -21,20 +21,12 @@ int main (int argc, char *argv[])
         heuristic = argv[2];
     }
 
-    // auto begin_time = std::chrono::system_clock::now();
     if( !Coloring.Read(filename.c_str()))
     {
         return -1;
     }
-    // std::chrono::duration<double> read_time = std::chrono::system_clock::now() - begin_time;
-        
-    // begin_time = std::chrono::system_clock::now();
+    
     Coloring.Shuffle(1);    //*/
-    // std::chrono::duration<double> shuffle_time = std::chrono::system_clock::now() - begin_time;
-/*
-    std::cout << "read time: " << read_time.count() << std::endl;
-    std::cout << "shuffle time: " << shuffle_time.count() << std::endl;
-*/
 
     //Coloring.OrderGraph(heuristic);
 

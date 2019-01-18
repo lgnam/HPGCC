@@ -149,9 +149,14 @@ bool HPGCC::GreedyLU()
     std::cout << "    Colors: " << max_colors << std::endl;
     std::cout << "    Vertices: " << size << std::endl;
     std::cout << "    Total Time [s]: " << color_dur.count() << std::endl;*/
+    
 
+    std::string output_file = "output/";
+    output_file += _filename;
+    output_file += "_times_greedy-lu.csv";
     std::ofstream output;
-    output.open("output/times_greedy-lu.csv", std::ofstream::app);
+    //output.open("output/times_greedy.csv", std::ofstream::app);
+    output.open(output_file.c_str(), std::ofstream::app);
 
     output << _filename << ", " << size << ", " << "Greedy-LU" << ", " << "1" << ", " << color_dur.count() << ", " << max_colors << ", " << valid_str << std::endl;
 

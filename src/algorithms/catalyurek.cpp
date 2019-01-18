@@ -102,8 +102,14 @@ bool HPGCC::Catalyurek(int nthreads)
 
     GetColorStats(vertex_colors, "Catalyurek", nthreads, times);//*/
 
+    //std::ofstream output;
+    //output.open("output/times_catalyurek.csv", std::ofstream::app);
+    std::string output_file = "output/";
+    output_file += _filename;
+    output_file += "_times_catalyurek.csv";
     std::ofstream output;
-    output.open("output/times_catalyurek.csv", std::ofstream::app);
+    //output.open("output/times_greedy.csv", std::ofstream::app);
+    output.open(output_file.c_str(), std::ofstream::app);
 
     output << _filename << ", " << size << ", " << "Catalyurek" << ", " << nthreads << ", " << total_color_dur.count() << ", ";
     output << max_colors << ", " << round << ", " << valid_str << std::endl;
