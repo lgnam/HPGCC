@@ -96,12 +96,21 @@ bool HPGCC::Read(std::string filename)
 
   int a = 0, b = 0;
   double c = 0.0;
+  int decrementor = 1;
 
   while (input >> a >> b >> c) {
-    // std::cout << a << " " << b << " " << c << std::endl;
+    //checks if indexing starts with 0 or 1
+    if (a == 0 || b == 0)
+    {
+      decrementor = 0;
+    }
+     //std::cout << "a " << a << " b " << b << " c " << c << std::endl;
     if (a != b) {
+      neighbors[b - decrementor].push_back(a - decrementor); // mtx file of bmw3_2 starts indexing with 1
+      neighbors[a - decrementor].push_back(b - decrementor);
+      /*
       neighbors[b - 1].push_back(a - 1); // mtx file of bmw3_2 starts indexing with 1
-      neighbors[a - 1].push_back(b - 1);
+      neighbors[a - 1].push_back(b - 1);*/
     }
   } // end of while(in_file)
 
